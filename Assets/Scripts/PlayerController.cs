@@ -9,7 +9,9 @@ public class PlayerController : MonoBehaviour
     public float speed = 0.0f;
     public TextMeshProUGUI countText;
     public GameObject winText;
+    public GameObject bullet;
 
+    private GameObject cam;
     private Rigidbody rb;
     private int count;
     private float movementX;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cam = GameObject.Find("Camera Parent");
         rb = GetComponent<Rigidbody>();
         count = 0;
         SetCountText();
@@ -37,10 +40,17 @@ public class PlayerController : MonoBehaviour
         movementY = movementVector.y;
     }
 
+    void OnFire() {
+        Instantiate(bullet, transform.position, transform.rotation);
+        Debug.Log("Fire");
+    }
+
+   
     void FixedUpdate()
     {
         Vector3 movement = new Vector3(movementX,0.0f,movementY);
-        rb.AddForce(movement * speed);
+        Vector3 rotatedMovementVector = Quaternion.Euler(0, cam.transform.rotation.eulerAngles.y, 0) * movement;
+        rb.AddForce(rotatedMovementVector * speed);
     }
 
     private void OnTriggerEnter(Collider other)
