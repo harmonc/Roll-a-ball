@@ -6,6 +6,9 @@ TagManager:
   tags:
   - PickUp
   - Wall
+  - East West Wall
+  - North South Wall
+  - Blue Portal
   layers:
   - Default
   - TransparentFX
