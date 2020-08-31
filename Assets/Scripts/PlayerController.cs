@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour
     public float speed = 0.0f;
     public TextMeshProUGUI countText;
     public GameObject winText;
-    public GameObject bullet;
+    public GameObject blueBullet;
+    public GameObject orangeBullet;
 
+    private bool blue = false;
     private GameObject cam;
     private Rigidbody rb;
     private int count;
@@ -41,8 +43,15 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnFire() {
-        Instantiate(bullet, transform.position, transform.rotation);
-        Debug.Log("Fire");
+        if (blue)
+        {
+            Instantiate(blueBullet, transform.position, transform.rotation);
+        }
+        else
+        {
+            Instantiate(orangeBullet, transform.position, transform.rotation);
+        }
+        blue = !blue;
     }
 
    
